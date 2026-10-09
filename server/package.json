@@ -1,0 +1,24 @@
+{
+  "name": "repo-visualizer-server",
+  "version": "1.0.0",
+  "description": "Backend API for GitHub Repository Architecture Visualizer & Module Analyzer",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "dev": "nodemon --watch src/index.js"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.26.9",
+    "@babel/traverse": "^7.26.9",
+    "@google/genai": "latest",
+    "adm-zip": "^0.5.16",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.14",
+    "pg": "^8.13.3"
+  }
+}
