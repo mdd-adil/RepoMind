@@ -1,0 +1,162 @@
+@import '@xyflow/react/dist/style.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neo-yellow: #ffea00;
+  --neo-cyan: #00f0ff;
+  --neo-lime: #00ff66;
+  --neo-pink: #ff007f;
+  --neo-purple: #b55fe6;
+  --neo-orange: #ff6b00;
+}
+
+/* Light Theme Variables */
+body:not(.dark) {
+  background-color: #f6f3eb;
+  color: #111827;
+}
+
+/* Dark Theme Variables */
+body.dark {
+  background-color: #0d0f14;
+  color: #f8fafc;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+  overflow: hidden;
+  letter-spacing: -0.01em;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+code, pre, .font-mono {
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+}
+
+/* Neo-Brutalism tactile shadows */
+.neo-box {
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.neo-box-sm {
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+.neo-box-lg {
+  border: 3px solid #000000;
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.neo-btn {
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px 0px #000000;
+  transition: all 0.1s ease;
+}
+
+.neo-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px 0px #000000;
+}
+
+/* Custom Neo Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #e2ddd3;
+  border-left: 2px solid #000;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #11131c;
+  border-left: 2px solid #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffea00;
+  border: 2px solid #000;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
+}
+
+/* React Flow Canvas Neo-Brutalist Styling */
+.react-flow__background {
+  background-color: #f0ece1 !important;
+}
+.dark .react-flow__background {
+  background-color: #0b0d12 !important;
+}
+
+.react-flow__controls {
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 4px 4px 0px 0px #000000 !important;
+  border-radius: 0px !important;
+  overflow: hidden;
+}
+.dark .react-flow__controls {
+  background: #161822 !important;
+}
+
+.react-flow__controls-button {
+  background: #ffffff !important;
+  border-bottom: 2px solid #000000 !important;
+  color: #111827 !important;
+  fill: #111827 !important;
+  border-radius: 0px !important;
+  transition: all 0.1s ease;
+}
+.dark .react-flow__controls-button {
+  background: #161822 !important;
+  color: #f8fafc !important;
+  fill: #f8fafc !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #ffea00 !important;
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+
+.react-flow__minimap {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 4px 4px 0px 0px #000000 !important;
+  border-radius: 0px !important;
+}
+.dark .react-flow__minimap {
+  background-color: #12141d !important;
+}
+
+/* Neo-Brutalist High-Contrast Edges */
+.react-flow__edge-path {
+  stroke-width: 2.5 !important;
+  transition: stroke 0.2s, stroke-width 0.2s;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke-width: 4 !important;
+  stroke: #ffea00 !important;
+}
+
+@keyframes neoDash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.animated-edge .react-flow__edge-path {
+  stroke-dasharray: 6;
+  animation: neoDash 0.6s linear infinite;
+}
