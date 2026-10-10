@@ -89,3 +89,4 @@ if (result.modules.length === 5 && result.dependencies.length >= 4) {
   console.error('❌ AST Analyzer Verification FAILED');
   process.exit(1);
 }
+

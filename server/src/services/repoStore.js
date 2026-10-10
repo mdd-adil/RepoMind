@@ -386,3 +386,20 @@ export async function getModuleDetails(moduleId) {
     outgoingDependencies: outgoing,
   };
 }
+
+export async function getRepoModules(repoId) {
+  const idNum = parseInt(repoId, 10);
+  if (isDbConnected()) {
+    try {
+      const res = await query(
+        'SELECT id, path, name, file_type, layer, size_bytes, loc, summary, deep_explanation, symbols, raw_content FROM modules WHERE repo_id = $1',
+        [idNum]
+      );
+      if (res.rows.length > 0) return res.rows;
+    } catch (e) {
+      console.warn('DB getRepoModules error:', e.message);
+    }
+  }
+
+  return Array.from(memoryStore.modules.values()).filter(m => m.repo_id === idNum);
+}

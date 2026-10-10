@@ -37,4 +37,9 @@ export const getGraph = async (repoId) => {
 export const getModule = async (moduleId) => {
   const res = await api.get(`/modules/${moduleId}`);
   return res.data;
+ };
+
+export const queryRepoRag = async (repoId, question) => {
+  const res = await api.post(`/repos/${repoId}/rag/query`, { question });
+  return res.data;
 };

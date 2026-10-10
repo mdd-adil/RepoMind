@@ -4,6 +4,7 @@ import { RepoInput } from './components/RepoInput';
 import { Dashboard } from './components/Dashboard';
 import { GraphView } from './components/GraphView';
 import { ModuleDetails } from './components/ModuleDetails';
+import { RagCodeAssistant } from './components/RagCodeAssistant';
 import { getRepo, getGraph, getRepos } from './services/api';
 
 export function App() {
@@ -11,6 +12,7 @@ export function App() {
   const [graphData, setGraphData] = useState(null);
   const [activeView, setActiveView] = useState('graph'); // 'dashboard' | 'graph'
   const [selectedModuleId, setSelectedModuleId] = useState(null);
+  const [isRagOpen, setIsRagOpen] = useState(false);
   const [loadingGraph, setLoadingGraph] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('repolens_theme');
@@ -88,20 +90,35 @@ export function App() {
         onSelectRepo={loadRepo}
         isDark={isDark}
         onToggleTheme={toggleTheme}
+        isRagOpen={isRagOpen}
+        onToggleRag={() => setIsRagOpen(prev => !prev)}
       />
 
       <main className="flex-1 flex overflow-hidden relative">
         {!currentRepo ? (
           <RepoInput onAnalysisComplete={handleAnalysisComplete} />
         ) : activeView === 'dashboard' ? (
-          <Dashboard
-            repo={currentRepo}
-            onOpenGraph={() => setActiveView('graph')}
-            onSelectModule={(id) => {
-              setSelectedModuleId(id);
-              setActiveView('graph');
-            }}
-          />
+          <div className="flex-1 flex h-full w-full overflow-hidden relative">
+            <Dashboard
+              repo={currentRepo}
+              onOpenGraph={() => setActiveView('graph')}
+              onSelectModule={(id) => {
+                setSelectedModuleId(id);
+                setActiveView('graph');
+              }}
+            />
+            {isRagOpen && (
+              <RagCodeAssistant
+                repo={currentRepo}
+                isDark={isDark}
+                onSelectModule={(id) => {
+                  setSelectedModuleId(id);
+                  setActiveView('graph');
+                }}
+                onClose={() => setIsRagOpen(false)}
+              />
+            )}
+          </div>
         ) : (
           <div className="flex-1 flex h-full w-full overflow-hidden relative">
             <GraphView
@@ -118,6 +135,17 @@ export function App() {
                 isDark={isDark}
                 onClose={() => setSelectedModuleId(null)}
                 onSelectModule={handleSelectModule}
+              />
+            )}
+
+            {isRagOpen && (
+              <RagCodeAssistant
+                repo={currentRepo}
+                isDark={isDark}
+                onSelectModule={(id) => {
+                  setSelectedModuleId(id);
+                }}
+                onClose={() => setIsRagOpen(false)}
               />
             )}
           </div>

@@ -5,6 +5,7 @@ import { initDb } from './db/index.js';
 import reposRouter from './routes/repos.js';
 import graphRouter from './routes/graph.js';
 import modulesRouter from './routes/modules.js';
+import ragRouter from './routes/rag.js';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get('/api/health', (req, res) => {
 // API Routes
 app.use('/api/repos', reposRouter);
 app.use('/api/repos', graphRouter);
+app.use('/api/repos', ragRouter);
 app.use('/api/modules', modulesRouter);
 
 // Global Error Handler
@@ -34,8 +36,20 @@ app.use((err, req, res, next) => {
 // Initialize database and start server
 async function startServer() {
   await initDb();
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`🚀 Repo Visualizer Server running on http://localhost:${PORT}`);
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      const fallbackPort = Number(PORT) + 1;
+      console.warn(`⚠️ Port ${PORT} is in use. Trying fallback port ${fallbackPort}...`);
+      app.listen(fallbackPort, () => {
+        console.log(`🚀 Repo Visualizer Server running on http://localhost:${fallbackPort}`);
+      });
+    } else {
+      console.error('Server error:', err);
+    }
   });
 }
 

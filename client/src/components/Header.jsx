@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Network, LayoutDashboard, FolderGit2, Plus, Terminal, ChevronDown, Check, Sun, Moon } from 'lucide-react';
+import { Network, LayoutDashboard, FolderGit2, Plus, Terminal, ChevronDown, Check, Sun, Moon, Bot } from 'lucide-react';
 import { getRepos } from '../services/api';
 
 export const Header = ({
@@ -10,6 +10,8 @@ export const Header = ({
   onSelectRepo,
   isDark,
   onToggleTheme,
+  isRagOpen,
+  onToggleRag,
 }) => {
   const [repoList, setRepoList] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -131,6 +133,22 @@ export const Header = ({
 
       {/* Right: Theme Toggle & Ingest CTA */}
       <div className="flex items-center gap-2 shrink-0">
+        {/* RAG Codebase Assistant Button */}
+        {currentRepo && (
+          <button
+            onClick={onToggleRag}
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 border-2 border-black font-mono font-black text-xs transition-all neo-btn cursor-pointer ${
+              isRagOpen
+                ? 'bg-[#00f0ff] text-black shadow-[2px_2px_0px_0px_#000]'
+                : 'bg-white dark:bg-[#202332] text-zinc-900 dark:text-zinc-100 hover:bg-[#00f0ff] hover:text-black'
+            }`}
+            title="Ask Codebase RAG Assistant"
+          >
+            <Bot className="w-3.5 h-3.5 stroke-[2.5]" />
+            <span className="hidden sm:inline">Ask AI</span>
+          </button>
+        )}
+
         {/* Dark / Light Mode Toggle Button */}
         <button
           onClick={onToggleTheme}
